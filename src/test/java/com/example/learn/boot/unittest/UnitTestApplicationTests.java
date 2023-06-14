@@ -5,6 +5,7 @@ package com.example.learn.boot.unittest;
 import com.example.learn.boot.unittest.model.EmployeeDTO;
 import com.example.learn.boot.unittest.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +34,8 @@ public class UnitTestApplicationTests {
 
 	protected ObjectMapper objectMapper;
 
+	protected EasyRandom random = new EasyRandom();
+
 	protected void createEmployee(String name, String address,String email,String phone ){
 		EmployeeDTO dto = new EmployeeDTO();
 		dto.setName(name);
@@ -40,8 +43,17 @@ public class UnitTestApplicationTests {
 		dto.setEmail(email);
 		dto.setPhone(phone);
 		employeeService.save(dto);
+
 	}
 
+	protected EmployeeDTO getCreatedEmployee(String name, String address,String email,String phone ){
+		EmployeeDTO dto = new EmployeeDTO();
+		dto.setName(name);
+		dto.setAddress(address);
+		dto.setEmail(email);
+		dto.setPhone(phone);
+		return (employeeService.save(dto));
+	}
 	@BeforeEach
 	public void setUp() {
 		objectMapper = new ObjectMapper();
